@@ -1,0 +1,2 @@
+[![Build Status](https://travis-ci.com/ardenit/ktserver.svg?token=Y4rJUAvZoAdBPZr95So2&branch=master)](https://travis-ci.org/ardenit/ktserver)
+[![Code Coverage](https://codecov.io/gh/ardenit/ktserver/branch/master/graph/badge.svg)](https://codecov.io/gh/ardenit/ktserver)
