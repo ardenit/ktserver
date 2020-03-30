@@ -23,6 +23,11 @@ test {
     useJUnitPlatform()
 }
 
+task run(dependsOn: classes, type: JavaExec) {
+    main = "LauncherKt"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }

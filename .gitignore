@@ -2,3 +2,4 @@
 /.idea
 /build
 server.log
+local.properties
