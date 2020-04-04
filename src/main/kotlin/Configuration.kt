@@ -11,10 +11,12 @@ private const val PROPERTIES_PATH = "./servercfg.properties"
 
 const val DEFAULT_SERVER_PORT = 54321
 const val DEFAULT_BYTE_COUNT = 20
+const val DEFAULT_MAXIMUM_CLIENTS = 1000
 
 data class Configuration(
-    val serverPort: Int,
-    val byteCount: Int
+    val serverPort: Int = DEFAULT_SERVER_PORT,
+    val byteCount: Int = DEFAULT_BYTE_COUNT,
+    val maximumClients: Int = DEFAULT_MAXIMUM_CLIENTS
 )
 
 fun loadConfiguration(): Configuration =
@@ -26,10 +28,10 @@ fun loadConfiguration(): Configuration =
         configuration
     } catch (ex: FileNotFoundException) {
         log.warning("Configuration file not found. Default values will be used.")
-        Configuration(DEFAULT_SERVER_PORT, DEFAULT_BYTE_COUNT)
+        Configuration(DEFAULT_SERVER_PORT, DEFAULT_BYTE_COUNT, DEFAULT_MAXIMUM_CLIENTS)
     } catch (ex: IOException) {
         log.warning("Error while reading a configuration file. Default values will be used.")
-        Configuration(DEFAULT_SERVER_PORT, DEFAULT_BYTE_COUNT)
+        Configuration(DEFAULT_SERVER_PORT, DEFAULT_BYTE_COUNT, DEFAULT_MAXIMUM_CLIENTS)
     }
 
 fun parsePropertiesFile(propertiesInputStream: InputStream): Configuration {
@@ -37,7 +39,8 @@ fun parsePropertiesFile(propertiesInputStream: InputStream): Configuration {
     properties.load(propertiesInputStream)
     val serverPort = loadIntProperty(properties, "serverPort", DEFAULT_SERVER_PORT)
     val byteCount = loadIntProperty(properties, "byteCount", DEFAULT_BYTE_COUNT)
-    return Configuration(serverPort, byteCount)
+    val maximumClients = loadIntProperty(properties, "maximumClients", DEFAULT_MAXIMUM_CLIENTS)
+    return Configuration(serverPort, byteCount, maximumClients)
 }
 
 fun loadIntProperty(properties: Properties, key: String, defaultValue: Int): Int =

@@ -12,9 +12,11 @@ internal class ConfigurationTest {
             serverPort = 1234
             # The number of bytes in each array. Checksum will be counted for each array of given size.
             byteCount = 12
+            # The number of clients that can be handled simultaneously. Default value is 1000.
+            maximumClients = 1000
         """.trimIndent()
         assertEquals(
-            Configuration(serverPort = 1234, byteCount = 12),
+            Configuration(serverPort = 1234, byteCount = 12, maximumClients = 1000),
             parsePropertiesFile(propertiesText.byteInputStream())
         )
     }
@@ -25,9 +27,10 @@ internal class ConfigurationTest {
             serverPo#rt = 0
             # The number of ####'s
             byteCount = 0
+            maximumClients =
         """.trimIndent()
         assertEquals(
-            Configuration(serverPort = DEFAULT_SERVER_PORT, byteCount = 0),
+            Configuration(serverPort = DEFAULT_SERVER_PORT, byteCount = 0, maximumClients = DEFAULT_MAXIMUM_CLIENTS),
             parsePropertiesFile(propertiesText.byteInputStream())
         )
     }
@@ -37,9 +40,10 @@ internal class ConfigurationTest {
         val propertiesText = """
             serverPort = 543213213124124213
             byteCount = bcda
+            max
         """.trimIndent()
         assertEquals(
-            Configuration(serverPort = DEFAULT_SERVER_PORT, byteCount = DEFAULT_BYTE_COUNT),
+            Configuration(serverPort = DEFAULT_SERVER_PORT, byteCount = DEFAULT_BYTE_COUNT, maximumClients = DEFAULT_MAXIMUM_CLIENTS),
             parsePropertiesFile(propertiesText.byteInputStream())
         )
     }
