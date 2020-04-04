@@ -7,7 +7,7 @@ internal class ServerTest {
 
     @Test
     fun `test single client`() {
-        val server = Server(Configuration(serverPort = 54321, byteCount = 1, maximumClients = 1))
+        val server = Server(Configuration(serverPort = 54321, byteCount = 1))
         val serverThread = thread {
             server.start()
         }
@@ -21,29 +21,12 @@ internal class ServerTest {
 
     @Test
     fun `test multiple clients`() {
-        val server = Server(Configuration(serverPort = 54321, byteCount = 1, maximumClients = 5))
+        val server = Server(Configuration(serverPort = 54321, byteCount = 1))
         val serverThread = thread {
             server.start()
         }
         val clientThreads = ArrayList<Thread>()
         repeat(5) {
-            clientThreads += thread {
-                testOneClient()
-            }
-        }
-        clientThreads.forEach { it.join() }
-        server.stop()
-        serverThread.join()
-    }
-
-    @Test
-    fun `test clients number overflow`() {
-        val server = Server(Configuration(serverPort = 54321, byteCount = 1, maximumClients = 2))
-        val serverThread = thread {
-            server.start()
-        }
-        val clientThreads = ArrayList<Thread>()
-        repeat(8) {
             clientThreads += thread {
                 testOneClient()
             }

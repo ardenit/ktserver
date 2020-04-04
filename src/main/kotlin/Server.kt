@@ -8,7 +8,7 @@ class Server(private val configuration: Configuration) {
 
     private val serverSocket = ServerSocket(configuration.serverPort)
     private val clientSockets = ConcurrentHashMap<Socket, Unit>()
-    private val executor = Executors.newFixedThreadPool(configuration.maximumClients)
+    private val executor = Executors.newCachedThreadPool()
 
     fun start() {
         try {
