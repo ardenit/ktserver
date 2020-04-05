@@ -1,6 +1,6 @@
 /.gradle
-/.idea
-/build
-*.log
-/logs
-local.properties
+                /.idea
+                /build
+                *.log
+                /logs
+                local.properties
